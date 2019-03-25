@@ -1,7 +1,7 @@
 import sys
 
 
-def main():
+def runnnn():
     doorNumber = input("Door number is : ")
     door = open("Porte" + doorNumber + ".txt", 'r')
     doorParts = door.read().replace(" ", "").split('\n')
@@ -124,4 +124,4 @@ def checkValidity(transition, inputString, finalStates, currentState, states):
                 transition, inputString[1:], finalStates, currentState, states)
 
 
-main()
+runnnn()
