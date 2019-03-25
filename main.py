@@ -11,11 +11,11 @@ def main():
             "(a) Entrer dans le labyrinth.\n(b) Ouvrir une porte.\n(c) Afficher le chemin parcouru.\n(d) Quitter.\n-> ")
 
         if userInput == 'a':
-            mazeGame.enter()
+            mazeGame.restartFromDoorOne()
         elif userInput == 'b':
-            mazeGame.openDoor()
+            mazeGame.ouvrirPorte()
         elif userInput == 'c':
-            mazeGame.showAllPaths()
+            mazeGame.afficherLeCheminParccouru()
         elif userInput == 'd':
             mazeGame.end()
 
