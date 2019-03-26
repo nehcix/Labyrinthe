@@ -130,7 +130,7 @@ class AutomataGenerator:
             return "Gouffre"
         else:
             #! return random door
-            print("c . Cette porte n ' est pas un gouffre .\n")
+            print("c . Cette porte n'est pas un gouffre .\n")
 
             doorToReturn = random.choice(self.__goodDoors)
             # doorToReturn = self.__goodDoors[0]

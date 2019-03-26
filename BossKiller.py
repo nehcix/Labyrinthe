@@ -90,14 +90,14 @@ class BossKiller:
                 for each in self.__boss.getRawProductions():
                     stringToPrint += each + ", "
                 print(stringToPrint[:-2], "}")
-                print("L' agent vainc l e Boss .\n")
+                print("L'agent vainc le Boss .\n")
             else:
                 print("{...}")
-                print("Le Boss vainc l ' agent . Retour a la Porte1 .\n")
+                print("Le Boss vainc l'agent . Retour a la Porte1 .\n")
 
         else:
             print("{...}")
-            print("Le Boss vainc l ' agent . Retour a la Porte1 .\n")
+            print("Le Boss vainc l'agent . Retour a la Porte1 .\n")
 
         print
 
