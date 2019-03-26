@@ -13,14 +13,8 @@ def main():
 
         if userInput == 'a':
             mazeGame.restartFromDoorOne()
-            optionAneedToBePressed = mazeGame.isOptionAneedToBePressed()
         elif userInput == 'b':
-            if optionAneedToBePressed == False:
-                mazeGame.ouvrirPorte()
-                optionAneedToBePressed = mazeGame.isOptionAneedToBePressed()
-            else:
-                print(
-                    "\nTant que l’option (a) n’a pas été choisie, l’option (b) ne peut pas être choisie.\n")
+            mazeGame.ouvrirPorte()
         elif userInput == 'c':
             mazeGame.afficherLeCheminParccouru()
         elif userInput == 'd':
