@@ -5,6 +5,7 @@ def main():
     mazeGame = MazeGame()
 
     mazeGame.start()
+    optionAneedToBePressed = True
 
     while(mazeGame.isStared()):
         userInput = input(
@@ -12,14 +13,20 @@ def main():
 
         if userInput == 'a':
             mazeGame.restartFromDoorOne()
+            optionAneedToBePressed = mazeGame.isOptionAneedToBePressed()
         elif userInput == 'b':
-            mazeGame.ouvrirPorte()
+            if optionAneedToBePressed == False:
+                mazeGame.ouvrirPorte()
+                optionAneedToBePressed = mazeGame.isOptionAneedToBePressed()
+            else:
+                print(
+                    "\nTant que l’option (a) n’a pas été choisie, l’option (b) ne peut pas être choisie.\n")
         elif userInput == 'c':
             mazeGame.afficherLeCheminParccouru()
         elif userInput == 'd':
             mazeGame.end()
-
-    print("hi")
+        else:
+            print("\nEntrée invalide!\n")
 
 
 main()
