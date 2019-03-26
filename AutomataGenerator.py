@@ -148,8 +148,7 @@ class AutomataGenerator:
                     if doorToReturn == eachPassword[1]:
                         passwordHistory += (eachPassword[0])
 
-            return random.choice(self.__goodDoors)
-            # return(self.__goodDoors[0])
+            return doorToReturn
 
     def thisPasswordIsValid(self, password, currentState):
         # check for each possibility

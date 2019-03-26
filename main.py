@@ -9,7 +9,7 @@ def main():
 
     while(mazeGame.isStared()):
         userInput = input(
-            "(a) Entrer dans le labyrinth.\n(b) Ouvrir une porte.\n(c) Afficher le chemin parcouru.\n(d) Quitter.\n-> ")
+            "(a) Entrer dans le labyrinthe.\n(b) Ouvrir une porte.\n(c) Afficher le chemin parcouru.\n(d) Quitter.\n-> ")
 
         if userInput == 'a':
             mazeGame.restartFromDoorOne()

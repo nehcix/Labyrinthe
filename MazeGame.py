@@ -23,8 +23,8 @@ class MazeGame:
     # permet de lire un fichier représentant une porte (ou le boss, le cas échéant) accessible à partir de l’emplacement courant, de déterminer l’automate relié à ce fichier et de déterminer les actions suivantes possibles par l’agent. Tant que l’option (a) n’a pas été choisie, l’option (b) ne peut pas être choisie. Il se peut qu’après l’exécution de l’option (b), on ne puisse plus exécuter l’option (b) parce que l’agent est tombé dans un gouffre ou a affronté le boss et qu’on doive choisir l’option (a) à nouveau.
     # Après avoir sélectionné l’option (b), l’agent affiche à la console le contenu du dernier événement (Porte ou Boss) tel que demandé dans l’annexe.
     def ouvrirPorte(self):
-        self.__currentDoor = Door(
-            self.__currentDoor.ouvrirPorte(self.__pathHistory, self.__passwordHistory))
+        nextDoor = self.__currentDoor.ouvrirPorte(self.__pathHistory, self.__passwordHistory)
+        self.__currentDoor = Door(nextDoor)
         if self.__currentDoor.getName() == "PorteGouffre":
             self.__optionAneedToBePressed = True
         else:

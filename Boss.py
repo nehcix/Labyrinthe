@@ -54,4 +54,4 @@ class Boss:
                 doorParts = open(eachDoor + ".txt", 'r').read().replace(" ", "").split('\n')
                 productionsToReturn.append(doorParts[1])
 
-        return "".join(productionsToReturn).split(',')
+        return ",".join(productionsToReturn).split(',')

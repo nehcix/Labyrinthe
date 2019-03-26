@@ -19,8 +19,15 @@ class BossKiller:
 
     def affronterBoss(self, pathHistory, passwordHistory):
         print("\nEvenement Boss")
-        print("a . ", pathHistory)
-        print("b . ", passwordHistory, "P =", end='')
+
+        print("a . ", end='')
+        stringToPrint = ""
+        for each in pathHistory:
+            stringToPrint += each + ", "
+        print(stringToPrint[:-2])
+
+        print("b .", "".join(passwordHistory), ", P =", end='')
+
         if self.__boss.getRightPath() == pathHistory:
 
             self.__doorProductions = self.__boss.getProductions()
