@@ -17,21 +17,21 @@ class BossKiller:
         self.__goodDoors = []
         self.__badDoors = []
 
-    def affronterBoss(self, pathHistory, passwordHistory):
-        print("\nEvenement Boss")
-
-        print("a . ", end='')
+    def affronterBoss(self, thisPathHistory, completePathHistory, passwordHistory):
         stringToPrint = ""
-        for each in pathHistory:
+        stringToPrint += "\nEvenement Boss\n"
+
+        stringToPrint += "a . "
+        for each in thisPathHistory:
             stringToPrint += each + ", "
-        print(stringToPrint[:-2])
+        stringToPrint = stringToPrint[:-2]
 
-        print("b .", "".join(passwordHistory), ", P =", end='')
+        stringToPrint += "\nb . " + "".join(passwordHistory) + ", P ="
 
-        if self.__boss.getRightPath() == pathHistory:
+        if self.__boss.getRightPath() == thisPathHistory:
 
             self.__doorProductions = self.__boss.getProductions()
-            self.__doorPasswords = ''.join(passwordHistory)+"Porte99"
+            self.__doorPasswords = ''.join(passwordHistory) + "Porte99"
 
             # add element to N, T, and finalStates
             for eachProduction in self.__doorProductions:
@@ -93,22 +93,20 @@ class BossKiller:
 
             if self.thisPasswordIsValid(self.__doorPasswords.split("Porte")[0], self.__initialState):
                 print("{", end='')
-                stringToPrint = ""
                 for each in self.__boss.getRawProductions():
                     stringToPrint += each + ", "
-                print(stringToPrint[:-2], "}")
-                print("L'agent vainc le Boss .\n")
+                stringToPrint = stringToPrint[:-2]
+                stringToPrint += "\nc . L'agent vainc le Boss .\n"
             else:
-                print("{...}")
-                print("Le Boss vainc l'agent . Retour a la Porte1 .\n")
+                stringToPrint += "{...}"
+                stringToPrint += "\nc . Le Boss vainc l'agent . Retour a la Porte1 .\n"
 
         else:
-            print("{...}")
-            print("Le Boss vainc l'agent . Retour a la Porte1 .\n")
+            stringToPrint += "{...}"
+            stringToPrint += "\nc . Le Boss vainc l'agent . Retour a la Porte1 .\n"
 
-        print
-
-        return
+        print(stringToPrint)
+        completePathHistory += stringToPrint
 
     def thisPasswordIsValid(self, password, currentState):
             # check for each possibility

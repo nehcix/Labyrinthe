@@ -13,10 +13,8 @@ class AutomataGenerator:
         self.__states = []
         self.__transition = {}
         self.__goodDoors = []
-        self.__badDoors = []
 
-    # Todo
-    def genererAutomate(self):
+    def prepareProductions(self):
         # e.g. if we have S-> and A->aS, A->a will be added to doorProductions
         for eachProduction in self.__doorProductions:
             eachProduction = eachProduction.split("->")
@@ -31,22 +29,7 @@ class AutomataGenerator:
                             self.__doorProductions.append(
                                 eachProduction2[0] + "->" + eachProduction2[1][0])
 
-        # add element to N, T, and finalStates
-        for eachProduction in self.__doorProductions:
-            eachProduction = eachProduction.split("->")
-            # add element to N
-            if eachProduction[0] not in self.__N:
-                self.__N.append(eachProduction[0])
-            # add element to T
-            for eachLetter in eachProduction[1]:
-                if not eachLetter.isupper() and eachLetter not in self.__T:
-                    self.__T.append(eachLetter)
-            # add element to finalStates
-            if len(eachProduction[1]) == 1 and not eachProduction[1].isupper() and eachProduction[1] not in self.__finalStates:
-                self.__finalStates.append(eachProduction[1])
-
-        self.__states = self.__finalStates + self.__N
-
+    def fillTransitions(self):
         # creation of the transition function with empty data
         for state in self.__states:
             self.__transition[state] = {}
@@ -73,16 +56,30 @@ class AutomataGenerator:
                     self.__transition[eachProduction[0]][eachProduction[1][0]].append(
                         eachProduction[1][0])
 
-        # print("N: ", self.__N)
-        # print("T: ", self.__T)
-        # print("finalStates: ", self.__finalStates)
-        # print(self.__transition)
+    def genererAutomate(self):
 
-        return
+        self.prepareProductions()
 
-    def findDoorWithGoodPassword(self, passwordHistory):
-        print("b . ", end='')
-        outputString = ""
+        # add element to N, T, and finalStates
+        for eachProduction in self.__doorProductions:
+            eachProduction = eachProduction.split("->")
+            # add element to N
+            if eachProduction[0] not in self.__N:
+                self.__N.append(eachProduction[0])
+            # add element to T
+            for eachLetter in eachProduction[1]:
+                if not eachLetter.isupper() and eachLetter not in self.__T:
+                    self.__T.append(eachLetter)
+            # add element to finalStates
+            if len(eachProduction[1]) == 1 and not eachProduction[1].isupper() and eachProduction[1] not in self.__finalStates:
+                self.__finalStates.append(eachProduction[1])
+
+        self.__states = self.__finalStates + self.__N
+
+        self.fillTransitions()
+
+    def findDoorWithGoodPassword(self, passwordHistory, completePathHistory):
+        stringToPrint = "b . "
         for eachPassword in self.__doorPasswords:
             if "Boss" in eachPassword:
                 eachPassword = eachPassword.split("Boss")
@@ -92,16 +89,15 @@ class AutomataGenerator:
                     for eachProduction in self.__doorProductions:
                         eachProduction = eachProduction.split("->")
                         if eachProduction[0] == 'S' and eachProduction[1] == '':
-                            outputString += ("{" + eachPassword[0] + ", Boss" + ", valide" + "}, ")
-                            self.__goodDoors = ["Boss"] + self.__goodDoors
+                            stringToPrint += ("{" + eachPassword[0] + ", Boss" + ", valide" + "}, ")
+                            self.__goodDoors = [[eachPassword[0], "Boss"]] + self.__goodDoors
 
                 else:
                     if self.thisPasswordIsValid(eachPassword[0], self.__initialState):
-                        outputString += ("{" + eachPassword[0] + ", Boss" + ", valide" + "}, ")
-                        self.__goodDoors = ["Boss"] + self.__goodDoors
+                        stringToPrint += ("{" + eachPassword[0] + ", Boss" + ", valide" + "}, ")
+                        self.__goodDoors = [[eachPassword[0], "Boss"]] + self.__goodDoors
                     else:
-                        outputString += ("{" + eachPassword[0] + ", Boss" + ", invalide" + "}, ")
-                        self.__badDoors = ["Boss"] + self.__badDoors
+                        stringToPrint += ("{" + eachPassword[0] + ", Boss" + ", invalide" + "}, ")
 
             elif "Porte" not in eachPassword:
                 break
@@ -113,42 +109,35 @@ class AutomataGenerator:
                     for eachProduction in self.__doorProductions:
                         eachProduction = eachProduction.split("->")
                         if eachProduction[0] == 'S' and eachProduction[1] == '':
-                            outputString += ("{" + eachPassword[0] + ", Porte" + eachPassword[1] + ", valide" + "}, ")
-                            self.__goodDoors.append(eachPassword[1])
+                            stringToPrint += ("{" + eachPassword[0] + ", Porte" + eachPassword[1] + ", valide" + "}, ")
+                            self.__goodDoors.append([eachPassword[0], eachPassword[1]])
+
                 else:
                     if self.thisPasswordIsValid(eachPassword[0], self.__initialState):
-                        outputString += ("{" + eachPassword[0] + ", Porte" + eachPassword[1] + ", valide" + "}, ")
-                        self.__goodDoors.append(eachPassword[1])
-                    else:
-                        outputString += ("{" + eachPassword[0] + ", Porte" + eachPassword[1] + ", invalide" + "}, ")
-                        self.__badDoors.append(eachPassword[1])
+                        stringToPrint += ("{" + eachPassword[0] + ", Porte" + eachPassword[1] + ", valide" + "}, ")
+                        self.__goodDoors.append([eachPassword[0], eachPassword[1]])
 
-        print(outputString[:-2])
+                    else:
+                        stringToPrint += ("{" + eachPassword[0] + ", Porte" + eachPassword[1] + ", invalide" + "}, ")
+
+        print(stringToPrint[:-2])
+        completePathHistory += stringToPrint[:-2] + "\n"
 
         if len(self.__goodDoors) == 0:
             print("c . Cette porte est un gouffre, retour à Porte1 .\n")
+            completePathHistory += "c . Cette porte est un gouffre, retour à Porte1 .\n"
             return "Gouffre"
         else:
             #! return random door
             print("c . Cette porte n'est pas un gouffre .\n")
+            completePathHistory += "c . Cette porte n'est pas un gouffre .\n"
 
-            doorToReturn = random.choice(self.__goodDoors)
-            # doorToReturn = self.__goodDoors[0]
+            PasswordAndDoorToReturn = random.choice(self.__goodDoors)
+            # PasswordAndDoorToReturn = self.__goodDoors[0]
 
-            for eachPassword in self.__doorPasswords:
-                if "Boss" in eachPassword:
-                    eachPassword = eachPassword.split("Boss")
-                    if doorToReturn == "Boss":
-                        passwordHistory += (eachPassword[0])
+            passwordHistory += PasswordAndDoorToReturn[0]
 
-                elif "Porte" not in eachPassword:
-                    break
-                else:
-                    eachPassword = eachPassword.split("Porte")
-                    if doorToReturn == eachPassword[1]:
-                        passwordHistory += (eachPassword[0])
-
-            return doorToReturn
+            return PasswordAndDoorToReturn[1]
 
     def thisPasswordIsValid(self, password, currentState):
         # check for each possibility

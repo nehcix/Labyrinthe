@@ -5,15 +5,16 @@ class MazeGame:
     def __init__(self):
         self.__name = "Labyrinthe"
         self.__isStarted = False
-        self.__pathHistory = []
-        self.__passwordHistory = ""
         self.__optionAneedToBePressed = False
         self.__currentDoor = ""
+        self.__passwordHistory = ""
+        self.__thisPathHistory = []
+        self.__completePathHistory = []
 
     # replace l’agent face à la première porte et réinitialise toutes les structures de données interne afin d’entamer un nouveau parcours du labyrinthe. Il garde toutefois en tête le chemin parcouru jusqu’à maintenant.
     def restartFromDoorOne(self):
         self.__currentDoor = Door("Porte1")
-        self.__pathHistory = []
+        self.__thisPathHistory = []
         self.__passwordHistory = []
         self.__optionAneedToBePressed = False
         self.ouvrirPorte()
@@ -23,9 +24,11 @@ class MazeGame:
     # Après avoir sélectionné l’option (b), l’agent affiche à la console le contenu du dernier événement (Porte ou Boss) tel que demandé dans l’annexe.
     def ouvrirPorte(self):
         if self.__optionAneedToBePressed == False:
-            nextDoor = self.__currentDoor.ouvrirPorte(self.__pathHistory, self.__passwordHistory)
+
+            nextDoor = self.__currentDoor.ouvrirPorte(self.__thisPathHistory, self.__completePathHistory, self.__passwordHistory)
             self.__currentDoor = Door(nextDoor)
-            if self.__currentDoor.getName() == "PorteGouffre":
+
+            if nextDoor == "PorteGouffre":
                 self.__optionAneedToBePressed = True
             else:
                 self.__optionAneedToBePressed = False
@@ -35,7 +38,7 @@ class MazeGame:
     # Todo
     # L’option (c) permet d’afficher un récapitulatif des choix effectués par l’agent en détaillant les éléments indiqués au requis C4.
     def afficherLeCheminParccouru(self):
-        print(self.__pathHistory[-1])
+        print("".join(self.__completePathHistory))
         return
 
     def getName(self):
