@@ -78,7 +78,7 @@ class AutomataGenerator:
 
         self.fillTransitions()
 
-    def findDoorWithGoodPassword(self, passwordHistory, completePathHistory):
+    def findDoorWithGoodPassword(self, passwordHistory, completeEventsHistory):
         stringToPrint = "b . "
         for eachPassword in self.__doorPasswords:
             if "Boss" in eachPassword:
@@ -121,16 +121,16 @@ class AutomataGenerator:
                         stringToPrint += ("{" + eachPassword[0] + ", Porte" + eachPassword[1] + ", invalide" + "}, ")
 
         print(stringToPrint[:-2])
-        completePathHistory += stringToPrint[:-2] + "\n"
+        completeEventsHistory += stringToPrint[:-2] + "\n"
 
         if len(self.__goodDoors) == 0:
             print("c . Cette porte est un gouffre, retour à Porte1 .\n")
-            completePathHistory += "c . Cette porte est un gouffre, retour à Porte1 .\n"
+            completeEventsHistory += "c . Cette porte est un gouffre, retour à Porte1 .\n"
             return "Gouffre"
         else:
             #! return random door
             print("c . Cette porte n'est pas un gouffre .\n")
-            completePathHistory += "c . Cette porte n'est pas un gouffre .\n"
+            completeEventsHistory += "c . Cette porte n'est pas un gouffre .\n"
 
             PasswordAndDoorToReturn = random.choice(self.__goodDoors)
             # PasswordAndDoorToReturn = self.__goodDoors[0]

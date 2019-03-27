@@ -17,7 +17,7 @@ class BossKiller:
         self.__goodDoors = []
         self.__badDoors = []
 
-    def affronterBoss(self, thisPathHistory, completePathHistory, passwordHistory):
+    def affronterBoss(self, thisPathHistory, completeEventsHistory, passwordHistory):
         stringToPrint = ""
         stringToPrint += "\nEvenement Boss\n"
 
@@ -106,7 +106,7 @@ class BossKiller:
             stringToPrint += "\nc . Le Boss vainc l'agent . Retour a la Porte1 .\n"
 
         print(stringToPrint)
-        completePathHistory += stringToPrint
+        completeEventsHistory += stringToPrint
 
     def thisPasswordIsValid(self, password, currentState):
             # check for each possibility

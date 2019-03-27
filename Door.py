@@ -14,10 +14,10 @@ class Door:
     def getName(self):
         return self.__name
 
-    def ouvrirPorte(self, thisPathHistory, completePathHistory, passwordHistory):
+    def ouvrirPorte(self, thisPathHistory, completeEventsHistory, passwordHistory):
         if self.__name == "PorteBoss":
             self.__bossKiller = BossKiller()
-            self.__bossKiller.affronterBoss(thisPathHistory, completePathHistory, passwordHistory)
+            self.__bossKiller.affronterBoss(thisPathHistory, completeEventsHistory, passwordHistory)
             return "PorteGouffre"
         elif self.__name == "PorteGouffre":
             return "PorteGouffre"
@@ -29,11 +29,11 @@ class Door:
             for each in thisPathHistory:
                 stringToPrint += each + ", "
             print(stringToPrint[:-2])
-            completePathHistory += stringToPrint[:-2] + "\n"
+            completeEventsHistory += stringToPrint[:-2] + "\n"
 
             self.__automataGenerator = AutomataGenerator(self.__doorProductions, self.__doorPasswords)
             self.__automataGenerator.genererAutomate()
-            return "Porte" + self.__automataGenerator.findDoorWithGoodPassword(passwordHistory, completePathHistory)
+            return "Porte" + self.__automataGenerator.findDoorWithGoodPassword(passwordHistory, completeEventsHistory)
 
     def getProduction(self):
         return self.__doorProductions
