@@ -11,7 +11,7 @@ class BossKiller:
         self.__N = []
         self.__T = []
         self.__initialState = 'S1'
-        self.__finalStates = []
+        self.__finalStates = ['Boss']
         self.__states = []
         self.__transition = {}
         self.__goodDoors = []
@@ -19,7 +19,7 @@ class BossKiller:
 
     def affronterBoss(self, thisPathHistory, completeEventsHistory, passwordHistory):
         stringToPrint = ""
-        stringToPrint += "\nEvenement Boss\n"
+        stringToPrint += "\nÉvènement Boss\n"
 
         stringToPrint += "a . "
         for each in thisPathHistory:
@@ -30,7 +30,7 @@ class BossKiller:
 
         if self.__boss.getRightPath() == thisPathHistory:
 
-            self.__doorProductions = self.__boss.getProductions()
+            self.__doorProductions = self.__boss.getVinsProductions()
             self.__doorPasswords = ''.join(passwordHistory) + "Porte99"
 
             # add element to N, T, and finalStates
@@ -51,7 +51,7 @@ class BossKiller:
                 if len(eachProduction[1]) == 1 and not eachProduction[1].isupper() and eachProduction[1] not in self.__finalStates:
                     self.__finalStates.append(eachProduction[1])
 
-            self.__states = self.__finalStates + self.__N
+            self.__states = self.__N
 
             # creation of the transition function with empty data
             for state in self.__states:
@@ -119,23 +119,18 @@ class BossKiller:
         if len(password) == 0:
             return isGoodPassword
         else:
-            if len(password) == 1 and self.__transition[currentState][password] == "Boss":
+            if len(password) == 1 and self.__transition[currentState][password] in self.__finalStates:
                 isGoodPassword = True
                 return isGoodPassword
             for each in self.__transition[currentState][password[0]]:
                 # move further only if you are at non-hypothetical currentState
-                if each != '':
+                if isGoodPassword:
+                    break
+                elif each != '':
                     currentState = each
-                    if len(password) == 1:
-                        # last symbol is read and currentState lies in the set of final states
-                        if (currentState in self.__finalStates):
-                            isGoodPassword = True
-                        else:
-                            isGoodPassword = False
-                    # inputString string for next transition is inputString[i+1:]
                     isGoodPassword = self.thisPasswordIsValid(password[1:], currentState)
-            if isGoodPassword == False and len(currentState) == 2 and [currentState, "S" + str(int(currentState[1]) + 1)] in self.__doorProductions:
-                currentState = "S" + str(int(currentState[1]) + 1)
-                isGoodPassword = self.thisPasswordIsValid(password, currentState)
+            # if isGoodPassword == False and len(currentState) == 2 and [currentState, "S" + str(int(currentState[1]) + 1)] in self.__doorProductions:
+            #     currentState = "S" + str(int(currentState[1]) + 1)
+            #     isGoodPassword = self.thisPasswordIsValid(password, currentState)
 
         return isGoodPassword

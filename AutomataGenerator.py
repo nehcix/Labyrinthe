@@ -128,12 +128,12 @@ class AutomataGenerator:
             completeEventsHistory += "c . Cette porte est un gouffre, retour à Porte1 .\n"
             return "Gouffre"
         else:
-            #! return random door
             print("c . Cette porte n'est pas un gouffre .\n")
             completeEventsHistory += "c . Cette porte n'est pas un gouffre .\n"
 
-            PasswordAndDoorToReturn = random.choice(self.__goodDoors)
-            # PasswordAndDoorToReturn = self.__goodDoors[0]
+            #! return random door
+            # PasswordAndDoorToReturn = random.choice(self.__goodDoors)
+            PasswordAndDoorToReturn = self.__goodDoors[0]
 
             passwordHistory += PasswordAndDoorToReturn[0]
 
