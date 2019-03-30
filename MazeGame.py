@@ -5,7 +5,7 @@ class MazeGame:
     def __init__(self):
         self.__name = "Labyrinthe"
         self.__isStarted = False
-        self.__optionAneedToBePressed = False
+        self.__optionAneedToBePressed = True
         self.__currentDoor = ""
         self.__passwordHistory = ""
         self.__thisPathHistory = []
@@ -17,7 +17,7 @@ class MazeGame:
         self.__thisPathHistory = []
         self.__passwordHistory = []
         self.__optionAneedToBePressed = False
-        self.ouvrirPorte()
+        print("\nVous etes maintenant devant la porte 1 du labyrinthe.\n")
         return
 
     # permet de lire un fichier représentant une porte (ou le boss, le cas échéant) accessible à partir de l’emplacement courant, de déterminer l’automate relié à ce fichier et de déterminer les actions suivantes possibles par l’agent. Tant que l’option (a) n’a pas été choisie, l’option (b) ne peut pas être choisie. Il se peut qu’après l’exécution de l’option (b), on ne puisse plus exécuter l’option (b) parce que l’agent est tombé dans un gouffre ou a affronté le boss et qu’on doive choisir l’option (a) à nouveau.

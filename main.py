@@ -7,15 +7,15 @@ def main():
     mazeGame.start()
     optionAneedToBePressed = True
 
-    print()
-
     while(mazeGame.isStared()):
-        print("+----------------------------------+\n" +
-              "| (a) Entrer dans le labyrinthe.   |\n" +
-              "| (b) Ouvrir une porte.            |\n" +
-              "| (c) Afficher le chemin parcouru. |\n" +
-              "| (d) Quitter.                     |\n" +
-              "+----------------------------------+")
+        print('''
+                 +----------------------------------+
+                 | (a) Entrer dans le labyrinthe.   | 
+                 | (b) Ouvrir une porte.            | 
+                 | (c) Afficher le chemin parcouru. | 
+                 | (d) Quitter.                     |
+                 +----------------------------------+
+                 ''')
         userInput = input("-> ")
 
         if userInput == 'a':

@@ -25,11 +25,9 @@ class Door:
             thisPathHistory.append(self.__name)
             stringToPrint = ""
             stringToPrint += "\nEvenement Porte\n"
-            stringToPrint += "a . "
-            for each in thisPathHistory:
-                stringToPrint += each + ", "
-            print(stringToPrint[:-2])
-            completeEventsHistory += stringToPrint[:-2] + "\n"
+            stringToPrint += "a . " + self.__name
+            print(stringToPrint)
+            completeEventsHistory += stringToPrint + "\n"
 
             self.__automataGenerator = AutomataGenerator(self.__doorProductions, self.__doorPasswords)
             self.__automataGenerator.genererAutomate()
