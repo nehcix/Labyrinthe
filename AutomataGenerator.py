@@ -132,8 +132,8 @@ class AutomataGenerator:
             completeEventsHistory += "c . Cette porte n'est pas un gouffre .\n"
 
             #! return random door
-            # PasswordAndDoorToReturn = random.choice(self.__goodDoors)
-            PasswordAndDoorToReturn = self.__goodDoors[0]
+            PasswordAndDoorToReturn = random.choice(self.__goodDoors)
+            # PasswordAndDoorToReturn = self.__goodDoors[0]
 
             passwordHistory += PasswordAndDoorToReturn[0]
 

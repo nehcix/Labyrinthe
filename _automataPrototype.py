@@ -40,7 +40,7 @@ def runnnn():
         if len(eachProduction[1]) == 1 and not eachProduction[1].isupper() and eachProduction[1] not in finalStates:
             finalStates.append(eachProduction[1])
 
-    print("N: ", N)
+    ("N: ", N)
     print("T: ", T)
     print("finalStates: ", finalStates)
 

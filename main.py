@@ -7,7 +7,7 @@ def main():
     mazeGame.start()
     optionAneedToBePressed = True
 
-    while(mazeGame.isStared()):
+    while(mazeGame.isStarted()):
         print('''
                  +----------------------------------+
                  | (a) Entrer dans le labyrinthe.   | 
@@ -21,7 +21,7 @@ def main():
         if userInput == 'a':
             mazeGame.restartFromDoorOne()
         elif userInput == 'b':
-            mazeGame.ouvrirPorte()
+            mazeGame.openCurrentDoor()
         elif userInput == 'c':
             mazeGame.afficherLeCheminParccouru()
         elif userInput == 'd':

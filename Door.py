@@ -5,6 +5,8 @@ from AutomataGenerator import *
 class Door:
     def __init__(self, name):
         self.__name = name
+        self.__bossKiller = ""
+        self.__automataGenerator = ""
         if self.__name != "PorteBoss" and self.__name != "PorteGouffre":
             # read .txt and replace all space by nothing, separated by line break into a list
             doorParts = open(self.__name + ".txt", 'r').read().replace(" ", "").split('\n')
