@@ -1,3 +1,13 @@
+#/***********************************************************************************************
+#Nom du fichier: BossKiller.py
+#Auteurs: Nanor Janjikian - 1901777
+#		 Xi Chen Shen - 1930285
+#		 Hakim Payman - 1938609
+#Date: 2 avril 2019
+#Description: fichier contenant la declaration et l'implementation de la classe
+#BossKiller.
+#*********************************************************************************************/
+
 from Boss import *
 from AutomataGenerator import *
 

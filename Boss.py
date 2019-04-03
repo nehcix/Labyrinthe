@@ -1,3 +1,13 @@
+#/***********************************************************************************************
+#Nom du fichier: Boss.py
+#Auteurs: Nanor Janjikian - 1901777
+#		 Xi Chen Shen - 1930285
+#		 Hakim Payman - 1938609
+#Date: 2 avril 2019
+#Description: fichier contenant la declaration et l'implementation de la classe
+#Boss.
+#*********************************************************************************************/
+
 class Boss:
     def __init__(self):
         self.__name = "Boss"
@@ -32,7 +42,7 @@ class Boss:
                             eachProduction[i] += str(counter)
                     tmpProductions.append("".join(eachProduction).split("->"))
 
-                #
+                
                 tmpPasswords = doorParts[3:]
                 for eachPassword in tmpPasswords:
                     if len(eachPassword) > 0 and eachPassword[0].isupper():
@@ -46,7 +56,7 @@ class Boss:
                         # tmpProductions += [["S" + str(counter), "S" + str(counter+1)]]
 
                         tmpProductions.remove(eachProduction)
-                        # search in a new copie of array
+                        # search in a new copy of array
                         for eachProduction2 in tmpProductions:
                             if len(eachProduction2[1]) == 3:
                                 if eachProduction[0] in eachProduction2[1]:
@@ -147,7 +157,7 @@ class Boss:
                 isGoodPassword = True
                 return isGoodPassword
             for each in self.__transition[currentState][password[0]]:
-                # move further only if you are at non-hypothetical currentState
+                # move further only if you are at a non-hypothetical currentState
                 if isGoodPassword:
                     break
                 elif each != '':

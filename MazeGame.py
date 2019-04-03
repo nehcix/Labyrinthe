@@ -1,3 +1,13 @@
+#/***********************************************************************************************
+#Nom du fichier: MazeGame.py
+#Auteurs: Nanor Janjikian - 1901777
+#		 Xi Chen Shen - 1930285
+#		 Hakim Payman - 1938609
+#Date: 2 avril 2019
+#Description: fichier contenant la declaration et l'implementation de la classe
+#MazeGame.
+#*********************************************************************************************/
+
 from Door import *
 
 
@@ -11,7 +21,8 @@ class MazeGame:
         self.__thisPathHistory = []
         self.__completeEventsHistory = []
 
-    # replace l’agent face à la première porte et réinitialise toutes les structures de données interne afin d’entamer un nouveau parcours du labyrinthe. Il garde toutefois en tête le chemin parcouru jusqu’à maintenant.
+    # Restarts the player position to door 1 and resets all data structures 
+    # except for the completeEventsHistory used before calling this method.
     def restartFromDoorOne(self):
         self.__currentDoor = Door("Porte1")
         self.__thisPathHistory = []
@@ -20,8 +31,9 @@ class MazeGame:
         print("\nVous etes maintenant devant la porte 1 du labyrinthe.\n")
         return
 
-    # permet de lire un fichier représentant une porte (ou le boss, le cas échéant) accessible à partir de l’emplacement courant, de déterminer l’automate relié à ce fichier et de déterminer les actions suivantes possibles par l’agent. Tant que l’option (a) n’a pas été choisie, l’option (b) ne peut pas être choisie. Il se peut qu’après l’exécution de l’option (b), on ne puisse plus exécuter l’option (b) parce que l’agent est tombé dans un gouffre ou a affronté le boss et qu’on doive choisir l’option (a) à nouveau.
-    # Après avoir sélectionné l’option (b), l’agent affiche à la console le contenu du dernier événement (Porte ou Boss) tel que demandé dans l’annexe.
+    # Reads a text file representing a door or the boss, creates the
+    # automata accordingly and displays the information about the current event. 
+    # This method cannot be called before restartFromDoorOne.
     def openCurrentDoor(self):
         if self.__optionAneedToBePressed == False:
 
@@ -35,8 +47,9 @@ class MazeGame:
         else:
             print("\nTant que l’option (a) n’a pas été choisie, l’option (b) ne peut pas être choisie.\n")
 
-    # L’option (c) permet d’afficher un récapitulatif des choix effectués par l’agent en détaillant les éléments indiqués au requis C4.
-    def afficherLeCheminParccouru(self):
+    # Displays a recap of all the events that occured before calling 
+    # this method
+    def afficherLeCheminParcouru(self):
         print("".join(self.__completeEventsHistory))
         return
 
